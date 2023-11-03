@@ -1,0 +1,5 @@
+.container {
+    flex-shrink: 0;
+    height: 64px;
+    background-color: red;
+}
