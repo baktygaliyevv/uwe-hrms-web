@@ -4,3 +4,19 @@
     align-items: center;
     justify-content: center;
 }
+
+.subtitle {
+    margin-top: 12px;
+}
+
+.actions {
+    flex: 1 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.subactions {
+    display: flex;
+    justify-content: space-between;
+}

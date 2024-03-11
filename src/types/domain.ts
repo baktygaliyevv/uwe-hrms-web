@@ -31,11 +31,11 @@ export interface GenericInternalError {
 export type Role = "admin" | "manager" | "chef" | "staff" | "courier" | "client";
 
 export interface User {
-  id?: number;
-  first_name?: string;
-  last_name?: string;
-  phone?: string;
-  role?: Role;
+  id: number;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  role: Role;
 }
 
 export interface UserPost {
@@ -55,21 +55,21 @@ export interface UserPatch {
 }
 
 export interface LoginPost {
-  phone?: string;
-  password?: string;
+  phone: string;
+  password: string;
 }
 
 export interface Restaurant {
-  id?: number;
-  city?: string;
+  id: number;
+  city: string;
 }
 
 export interface Product {
-  id?: number;
-  name?: string;
-  vegan?: boolean;
+  id: number;
+  name: string;
+  vegan: boolean;
   vegeterian?: boolean;
-  gluten_free?: boolean;
+  gluten_free: boolean;
 }
 
 export interface ProductPost {
@@ -87,9 +87,9 @@ export interface ProductPatch {
 }
 
 export interface Table {
-  id?: number;
-  restaurant?: Restaurant;
-  capacity?: number;
+  id: number;
+  restaurant: Restaurant;
+  capacity: number;
 }
 
 export interface TablePost {
@@ -103,11 +103,11 @@ export interface TablePatch {
 }
 
 export interface Menu {
-  id?: number;
-  name?: string;
-  category?: MenuCategory;
-  price?: number;
-  products?: Product[];
+  id: number;
+  name: string;
+  category: MenuCategory;
+  price: number;
+  products: Product[];
 }
 
 export interface MenuPost {
@@ -124,8 +124,8 @@ export interface MenuPatch {
 }
 
 export interface MenuProduct {
-  id?: number;
-  name?: string;
+  id: number;
+  name: string;
 }
 
 export interface MenuProductPost {
@@ -133,17 +133,17 @@ export interface MenuProductPost {
 }
 
 export interface MenuCategory {
-  id?: number;
-  name?: string;
+  id: number;
+  name: string;
 }
 
 export interface MenuCategoryPost {
-  name?: string;
+  name: string;
 }
 
 export interface OrderItem {
-  item?: Menu;
-  quantity?: number;
+  item: Menu;
+  quantity: number;
 }
 
 export interface OrderItemPost {
@@ -156,25 +156,20 @@ export interface OrderItemPatch {
 }
 
 export interface Order {
-  id?: number;
-  user?: User;
-  table?: Table;
-  promocode?: Promocode;
+  id: number;
+  user: User | null;
+  table: Table;
+  promocode: Promocode | null;
   /** @format date-time */
-  created_at?: string;
-  /** @format date-time */
-  completed_at?: string;
-  items?: OrderItem[];
+  created_at: string;
+  completed_at: string | null;
+  items: OrderItem[];
 }
 
 export interface OrderPost {
   user_id: number;
   table_id: number;
   promocode_id: string;
-  /** @format date-time */
-  created_at: string;
-  /** @format date-time */
-  completed_at: string;
   items: OrderItemPost[];
 }
 
@@ -183,14 +178,12 @@ export interface OrderPatch {
   table_id?: number;
   promocode_id?: string;
   /** @format date-time */
-  created_at?: string;
-  /** @format date-time */
   completed_at?: string;
 }
 
 export interface DeliveryItem {
-  item?: Menu;
-  quantity?: number;
+  item: Menu;
+  quantity: number;
 }
 
 export interface DeliveryItemPost {
@@ -205,15 +198,15 @@ export interface DeliveryItemPatch {
 export type DeliveryStatus = "new" | "delivering" | "complete";
 
 export interface Delivery {
-  id?: number;
-  user?: User;
-  restaurant?: Restaurant;
-  promocode?: Promocode;
-  address?: string;
+  id: number;
+  user: User;
+  restaurant: Restaurant;
+  promocode: Promocode | null;
+  address: string;
   /** @format date-time */
-  created_at?: string;
-  status?: DeliveryStatus;
-  items?: DeliveryItem[];
+  created_at: string;
+  status: DeliveryStatus;
+  items: DeliveryItem[];
 }
 
 export interface DeliveryPost {
