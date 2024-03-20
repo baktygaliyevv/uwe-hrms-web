@@ -1,8 +1,7 @@
 import { FC, useCallback, useState, ChangeEvent } from "react";
 import styles from './Login.module.css';
-import { Card, CardBody, CardHeader, FormControl, InputGroup, InputLeftAddon, Input, Heading, CardFooter, Button, useToast, Link, Checkbox } from "@chakra-ui/react";
+import { Card, CardBody, CardHeader, FormControl, Input, Heading, CardFooter, Button, useToast, Link, Checkbox } from "@chakra-ui/react";
 import { authLoginPost } from "../../../../api/auth/authLoginPost";
-import { useSetRole } from "../../../../stores/RoleStore";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 
 export const Login: FC = () => {
@@ -21,6 +20,7 @@ export const Login: FC = () => {
             email,
             password
         })
+        // @ts-expect-error будем писать в стор текущего пользователя
         .then(({ data }) => {
             toast({
                 title: 'Logged in!',

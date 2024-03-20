@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Menu as MenuItemType } from '../../../../types/domain';
 import { Button, Heading, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, UnorderedList } from "@chakra-ui/react";
-import { getAllergyType, isGlutenFree, isVegan, isVegeterian } from "../../../../utils/getAllergyType";
+import { isGlutenFree, isVegan, isVegeterian } from "../../../../utils/getAllergyType";
 
 type Props = {
     item: MenuItemType | null;

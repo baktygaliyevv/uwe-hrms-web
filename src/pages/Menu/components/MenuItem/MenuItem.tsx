@@ -1,6 +1,6 @@
 import { FC, useCallback } from "react";
-import { Menu as MenuItemType, Product } from '../../../../types/domain';
-import { Button, Card, CardBody, CardFooter, CardHeader, Heading, Text } from "@chakra-ui/react";
+import { Menu as MenuItemType } from '../../../../types/domain';
+import { Button, Card, CardBody, CardFooter, Heading, Text } from "@chakra-ui/react";
 import styles from './MenuItem.module.css';
 import { getAllergyType } from "../../../../utils/getAllergyType";
 
