@@ -11,7 +11,8 @@ export const withAuth = (WrappedComponent: FC) => {
         const { own, setOwn } = useOwnUser();
 
         useEffect(() => {
-            if(own) setLoading(false);
+            if(own) return setLoading(false);
+            
             authGet()
                 .then(({ data }) => setOwn(data.payload))
                 .catch(() => navigateTo('/login'));
