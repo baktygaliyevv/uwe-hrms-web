@@ -1,8 +1,21 @@
-import { FC } from "react";
+import { useEffect, useState } from "react";
 import { PageWrapper } from "../../components/PageWrapper/PageWrapper";
+import { Menu } from "./components/Menu/Menu";
+import { Menu as MenuItemType } from "../../types/domain";
+import { menuGet } from "../../api/menu/menuGet";
+import { Loader } from "../../components/Loader/Loader";
+import { withAuth } from "../../hocs/withAuth";
 
-export const MenuPage: FC = () => (
-    <PageWrapper>
-        
-    </PageWrapper>
-)
+export const MenuPage = withAuth(() => {
+    const [menu, setMenu] = useState<MenuItemType[]>();
+
+    useEffect(() => {
+        menuGet().then(({ data }) => setMenu(data.payload));
+    }, []);
+
+    return (
+        <PageWrapper>
+            {menu ? <Menu menu={menu} /> : <Loader />}
+        </PageWrapper>
+    );
+});

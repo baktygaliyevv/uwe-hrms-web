@@ -1,7 +1,6 @@
-import { LoginPost, User } from "../../types/domain";
-import { GenericOk } from "../../types/genericResponses";
+import { LoginPost, User, GenericOk } from "../../types/domain";
 import { apiBase } from "../base";
 
-type Response = GenericOk<User>;
+type Response = GenericOk & { payload: User };
 
 export const authLoginPost = (payload: LoginPost) => apiBase.post<Response>('/auth/login', payload);

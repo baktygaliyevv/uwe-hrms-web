@@ -1,5 +1,5 @@
 import { FC, useCallback, useState, ChangeEvent } from "react";
-import { Card, CardBody, CardHeader, FormControl, InputGroup, InputLeftAddon, Input, Heading, CardFooter, Button, useToast, Link, Checkbox } from "@chakra-ui/react";
+import { Card, CardBody, CardHeader, FormControl, Input, Heading, CardFooter, Button, Link } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from 'react-router-dom';
 import styles from './Signup.module.css';
 
