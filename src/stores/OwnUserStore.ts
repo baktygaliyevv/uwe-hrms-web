@@ -3,7 +3,7 @@ import { User } from '../types/domain';
 
 type OwnUserStore = {
     own: User | null;
-    setOwn: (p: User) => void
+    setOwn: (p: User | null) => void
 }
 
 export const useOwnUser = create<OwnUserStore>((set) => ({

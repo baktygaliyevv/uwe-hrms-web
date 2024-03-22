@@ -7,7 +7,7 @@ import { Loader } from "../components/Loader/Loader";
 export const withAuth = (WrappedComponent: FC) => {
     const Component: FC = () => {
         const navigateTo = useNavigate();
-        const [loading, setLoading] = useState(true);
+        const [loading, setLoading] = useState(false); // FIXME DEBUG true
         const { own, setOwn } = useOwnUser();
 
         useEffect(() => {
@@ -15,7 +15,7 @@ export const withAuth = (WrappedComponent: FC) => {
             
             authGet()
                 .then(({ data }) => setOwn(data.payload))
-                .catch(() => navigateTo('/login'));
+                //.catch(() => navigateTo('/login'));
         }, [own]);
 
         if(loading) {
