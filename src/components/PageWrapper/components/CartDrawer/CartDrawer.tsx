@@ -1,6 +1,7 @@
 import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay } from "@chakra-ui/react";
 import { FC } from "react";
 import { useCart } from "../../../../stores/CartStore";
+import { CartItem } from "../CartItem/CartItem";
 
 type Props = {
     isOpen: boolean;
@@ -22,7 +23,7 @@ export const CartDrawer: FC<Props> = ({ isOpen, onClose }) => {
                 <DrawerHeader>Cart</DrawerHeader>
                 <DrawerBody>
                     {cart.map(({ item, quantity }) => ( // TODO
-                        <div key={item.id}>{item.id} {item.name} {quantity}</div>
+                        <CartItem key={item.id} item={item} quantity={quantity} />
                     ))}
                 </DrawerBody>
             </DrawerContent>
