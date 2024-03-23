@@ -1,6 +1,6 @@
 import { FC, useCallback, useMemo } from "react";
 import { Menu as MenuItemType } from '../../../../types/domain';
-import { Button, Card, CardBody, CardFooter, Heading, Text } from "@chakra-ui/react";
+import { Button, ButtonGroup, Card, CardBody, CardFooter, Heading, IconButton, Text } from "@chakra-ui/react";
 import styles from './MenuItem.module.css';
 import { getAllergyType } from "../../../../utils/getAllergyType";
 import { useCart } from "../../../../stores/CartStore";
@@ -64,11 +64,23 @@ export const MenuItem: FC<Props> = ({ item, onSelect }) => {
             <CardFooter>
                 <div className={styles.flexbetween}>
                     <Text fontWeight="bold">£ {item.price}</Text>
-                    <div>
-                        {Boolean(quantity) && <Button onClick={handleIncrement}><AddIcon /></Button>}
+                    <ButtonGroup isAttached>
+                        {Boolean(quantity) && (
+                            <IconButton 
+                                aria-label="Increment"
+                                onClick={handleIncrement}
+                                icon={<AddIcon />}
+                            />
+                        )}
                         <Button>{quantity || 'Select'}</Button>
-                        {Boolean(quantity) && <Button onClick={handleDecrement}><MinusIcon /></Button>}
-                    </div>
+                        {Boolean(quantity) && (
+                            <IconButton 
+                                aria-label="Decrement" 
+                                onClick={handleDecrement} 
+                                icon={<MinusIcon />}
+                            />
+                        )}
+                    </ButtonGroup>
                 </div>
             </CardFooter>
         </Card>

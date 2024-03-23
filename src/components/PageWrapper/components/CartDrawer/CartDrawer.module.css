@@ -1,0 +1,14 @@
+
+.semiBoldLine {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+}
+
+.boldLine {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}

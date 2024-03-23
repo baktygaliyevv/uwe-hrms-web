@@ -1,6 +1,6 @@
 import { FC, useCallback, useState } from "react";
 import styles from './Header.module.css';
-import { Button, useToast } from "@chakra-ui/react";
+import { Button, IconButton, useToast } from "@chakra-ui/react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import { useOwnUser } from "../../../../stores/OwnUserStore";
 import { authDelete } from "../../../../api/auth/authDelete";
@@ -43,9 +43,11 @@ export const Header: FC = () => {
                     ) : (
                         <Button as={ReactRouterLink} to='/login'>Login</Button>
                     )}
-                    <Button onClick={handleCartToggle}>
-                        <CartIcon />
-                    </Button>
+                    <IconButton 
+                        aria-label="Cart" 
+                        onClick={handleCartToggle} 
+                        icon={<CartIcon />}
+                    />             
                 </div>
             </div>
             <CartDrawer isOpen={cartOpen} onClose={handleCartToggle} />
