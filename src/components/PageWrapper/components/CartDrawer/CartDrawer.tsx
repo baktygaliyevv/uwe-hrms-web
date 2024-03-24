@@ -2,10 +2,9 @@ import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFoo
 import { FC, useCallback, useState } from "react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { useCart } from "../../../../stores/CartStore";
-import { CartItem } from "../CartItem/CartItem";
+import { CartItem } from "../../../CartItem/CartItem";
 import { calculateCart } from "../../../../utils/calculateCart";
 import styles from './CartDrawer.module.css';
-import { promocodesIdGet } from "../../../../api/promocodes/promocodesIdGet";
 
 const getDrawerHeader = (totalQuantity: number, sum: number) => {
     if(totalQuantity === 0) return 'Cart is empty';
@@ -20,7 +19,7 @@ type Props = {
 
 export const CartDrawer: FC<Props> = ({ isOpen, onClose }) => {
     const toast = useToast();
-    const { cart, promocode, add, remove, applyPromocode } = useCart();
+    const { cart, promocode, applyPromocode } = useCart();
 
     const { totalQuantity, subTotalSum, totalSum } = calculateCart(cart, promocode);
 
@@ -67,7 +66,12 @@ export const CartDrawer: FC<Props> = ({ isOpen, onClose }) => {
                 <DrawerHeader>{getDrawerHeader(totalQuantity, totalSum)}</DrawerHeader>
                 <DrawerBody display="flex" flexDir="column" gap="8px">
                     {cart.map(({ item, quantity }) => (
-                        <CartItem key={item.id} item={item} quantity={quantity} />
+                        <CartItem 
+                            key={item.id} 
+                            item={item} 
+                            quantity={quantity}
+                            showActions
+                        />
                     ))}
                 </DrawerBody>
                 <DrawerFooter display='flex' flexDir='column' gap='16px'>
