@@ -5,6 +5,7 @@ import { useCart } from "../../../../stores/CartStore";
 import { CartItem } from "../../../CartItem/CartItem";
 import { calculateCart } from "../../../../utils/calculateCart";
 import styles from './CartDrawer.module.css';
+import { promocodesIdGet } from "../../../../api/promocodes/promocodesIdGet";
 
 const getDrawerHeader = (totalQuantity: number, sum: number) => {
     if(totalQuantity === 0) return 'Cart is empty';
@@ -26,7 +27,7 @@ export const CartDrawer: FC<Props> = ({ isOpen, onClose }) => {
     const [promoValue, setPromoValue] = useState(promocode?.id || '');
     const handlePromoValueChange = useCallback((event: any) => setPromoValue(event.target.value), []);
     const handleApplyPromocode = useCallback(() => {
-        /*promocodesIdGet({ id: promoValue })
+        promocodesIdGet({ id: promoValue })
             .then(({ data }) => {
                 applyPromocode(data.payload);
                 toast({
@@ -41,17 +42,7 @@ export const CartDrawer: FC<Props> = ({ isOpen, onClose }) => {
                     status: 'error',
                     duration: 2000
                 }); 
-            })*/
-        applyPromocode({
-            id: 'TEST',
-            discount: 20,
-            valid_till: ''
-        });
-        toast({
-            title: `${20}% applied successfully!`,
-            status: 'success',
-            duration: 1000
-        });
+            });
     }, [promoValue]);
 
     return (

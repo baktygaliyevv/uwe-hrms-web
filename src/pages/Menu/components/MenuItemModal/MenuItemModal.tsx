@@ -1,7 +1,7 @@
 import { FC, useCallback } from "react";
 import { Menu as MenuItemType } from '../../../../types/domain';
 import { Button, Heading, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, UnorderedList } from "@chakra-ui/react";
-import { isGlutenFree, isVegan, isVegeterian } from "../../../../utils/getAllergyType";
+import { isGlutenFree, isVegan, isVegetarian } from "../../../../utils/getAllergyType";
 import { useCart } from "../../../../stores/CartStore";
 
 type Props = {
@@ -29,7 +29,7 @@ export const MenuItemModal: FC<Props> = ({ item, onClose }) => {
                     <Heading size="sm" mt='24px'>Allergens</Heading>
                     <UnorderedList>
                         <ListItem>This menu item is {!isVegan(item?.products || []) && 'NOT'} suitable for vegans</ListItem>
-                        <ListItem>This menu item is {!isVegeterian(item?.products || []) && 'NOT'} suitable for vegeterians</ListItem>
+                        <ListItem>This menu item is {!isVegetarian(item?.products || []) && 'NOT'} suitable for vegeterians</ListItem>
                         <ListItem>This menu item is {!isGlutenFree(item?.products || []) && 'NOT'} suitable for people with gluten allergies</ListItem>
                     </UnorderedList>
                 </ModalBody>

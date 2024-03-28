@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo } from "react";
+import { FC, useCallback } from "react";
 import { Menu as MenuItemType } from '../../../../types/domain';
 import { Button, ButtonGroup, Card, CardBody, CardFooter, Heading, IconButton, Text } from "@chakra-ui/react";
 import styles from './MenuItem.module.css';
