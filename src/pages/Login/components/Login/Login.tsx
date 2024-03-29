@@ -1,4 +1,4 @@
-import { FC, useCallback, useState, ChangeEvent } from "react";
+import { FC, useCallback, useState, ChangeEvent, useEffect } from "react";
 import styles from './Login.module.css';
 import { Card, CardBody, CardHeader, FormControl, Input, Heading, CardFooter, Button, useToast, Link, Checkbox } from "@chakra-ui/react";
 import { authLoginPost } from "../../../../api/auth/authLoginPost";
@@ -7,6 +7,17 @@ import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 export const Login: FC = () => {
     const toast = useToast();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.get('success') === 'true') {
+            toast({
+                title: 'Email is verified. You can now login!',
+                status: 'success',
+                duration: 5000
+            });
+        }
+    }, []);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
