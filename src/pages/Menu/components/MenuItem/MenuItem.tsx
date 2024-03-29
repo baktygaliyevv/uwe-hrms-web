@@ -1,8 +1,10 @@
 import { FC, useCallback } from "react";
 import { Menu as MenuItemType } from '../../../../types/domain';
-import { Button, Card, CardBody, CardFooter, Heading, Text } from "@chakra-ui/react";
+import { Button, ButtonGroup, Card, CardBody, CardFooter, Heading, IconButton, Text } from "@chakra-ui/react";
 import styles from './MenuItem.module.css';
 import { getAllergyType } from "../../../../utils/getAllergyType";
+import { useCart } from "../../../../stores/CartStore";
+import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 
 // V VE GF
 // <span>{item.products.every(({ vegan }) => vegan) && 'Vegan'}</span>
@@ -28,7 +30,19 @@ type Props = {
 };
 
 export const MenuItem: FC<Props> = ({ item, onSelect }) => {
+    const { cart, add, remove } = useCart();
+
+    const quantity = cart.find(({ item: i }) => i.id === item.id)?.quantity || 0;
+
     const handleSelect = useCallback(() => onSelect(item), [item]);
+    const handleIncrement = useCallback((e: any) => { // FIXME typings
+        e.stopPropagation();
+        add(item);
+    }, [item]);
+    const handleDecrement = useCallback((e: any) => { // FIXME typings
+        e.stopPropagation();
+        remove(item);
+    }, [item]);
 
     return (
         <Card onClick={handleSelect}>
@@ -40,7 +54,7 @@ export const MenuItem: FC<Props> = ({ item, onSelect }) => {
                             const style = MARKER_COLORS[v];
 
                             return (
-                                <div className={styles.marker} style={style}>{v}</div>
+                                <div key={v} className={styles.marker} style={style}>{v}</div>
                             )
                         })}
                     </div>
@@ -50,7 +64,23 @@ export const MenuItem: FC<Props> = ({ item, onSelect }) => {
             <CardFooter>
                 <div className={styles.flexbetween}>
                     <Text fontWeight="bold">£ {item.price}</Text>
-                    <Button>Select</Button>
+                    <ButtonGroup isAttached>
+                        {Boolean(quantity) && (
+                            <IconButton 
+                                aria-label="Increment"
+                                onClick={handleIncrement}
+                                icon={<AddIcon />}
+                            />
+                        )}
+                        <Button>{quantity || 'Select'}</Button>
+                        {Boolean(quantity) && (
+                            <IconButton 
+                                aria-label="Decrement" 
+                                onClick={handleDecrement} 
+                                icon={<MinusIcon />}
+                            />
+                        )}
+                    </ButtonGroup>
                 </div>
             </CardFooter>
         </Card>

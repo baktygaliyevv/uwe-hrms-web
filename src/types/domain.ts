@@ -34,14 +34,14 @@ export interface User {
   id: number;
   first_name: string;
   last_name: string;
-  phone: string;
+  email: string;
   role: Role;
 }
 
 export interface UserPost {
   first_name: string;
   last_name: string;
-  phone: string;
+  email: string;
   password: string;
   role: Role;
 }
@@ -49,13 +49,13 @@ export interface UserPost {
 export interface UserPatch {
   first_name?: string;
   last_name?: string;
-  phone?: string;
+  email?: string;
   password?: string;
   role?: Role;
 }
 
 export interface LoginPost {
-  phone: string;
+  email: string;
   password: string;
 }
 
@@ -68,21 +68,21 @@ export interface Product {
   id: number;
   name: string;
   vegan: boolean;
-  vegeterian?: boolean;
+  vegetarian: boolean;
   gluten_free: boolean;
 }
 
 export interface ProductPost {
   name: string;
   vegan: boolean;
-  vegeterian: boolean;
+  vegetarian: boolean;
   gluten_free: boolean;
 }
 
 export interface ProductPatch {
   name?: string;
   vegan?: boolean;
-  vegeterian?: boolean;
+  vegetarian?: boolean;
   gluten_free?: boolean;
 }
 
@@ -162,16 +162,26 @@ export interface Order {
   promocode: Promocode | null;
   /** @format date-time */
   created_at: string;
+  /** @format date-time */
   completed_at: string | null;
   items: OrderItem[];
 }
 
-export interface OrderPost {
-  user_id: number;
+export interface OrderPostGeneric {
   table_id: number;
-  promocode_id: string;
+  promocode_id?: string | null;
   items: OrderItemPost[];
 }
+
+export type OrderClientPost = OrderPostGeneric & {
+  email?: string | null;
+  first_name?: string | null;
+  last_name?: string | null;
+};
+
+export type OrderPost = OrderPostGeneric & {
+  user_id: number;
+};
 
 export interface OrderPatch {
   user_id?: number;
@@ -209,12 +219,22 @@ export interface Delivery {
   items: DeliveryItem[];
 }
 
-export interface DeliveryPost {
-  user_id: number;
+export interface DeliveryPostGeneric {
   restaurant_id: number;
-  promocode_id: string;
+  promocode_id?: string | null;
+  address: string;
   items: DeliveryItemPost[];
 }
+
+export type DeliveryPost = DeliveryPostGeneric & {
+  user_id: number;
+};
+
+export type DeliveryClientPost = DeliveryPostGeneric & {
+  email?: string | null;
+  first_name?: string | null;
+  last_name?: string | null;
+};
 
 export interface DeliveryPatch {
   user_id?: number;

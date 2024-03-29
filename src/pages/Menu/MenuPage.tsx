@@ -4,9 +4,8 @@ import { Menu } from "./components/Menu/Menu";
 import { Menu as MenuItemType } from "../../types/domain";
 import { menuGet } from "../../api/menu/menuGet";
 import { Loader } from "../../components/Loader/Loader";
-import { withAuth } from "../../hocs/withAuth";
 
-export const MenuPage = withAuth(() => {
+export const MenuPage = () => {
     const [menu, setMenu] = useState<MenuItemType[]>();
 
     useEffect(() => {
@@ -18,4 +17,4 @@ export const MenuPage = withAuth(() => {
             {menu ? <Menu menu={menu} /> : <Loader />}
         </PageWrapper>
     );
-});
+};

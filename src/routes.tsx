@@ -3,6 +3,7 @@ import { LoginPage } from "./pages/Login/LoginPage";
 import { MenuPage } from "./pages/Menu/MenuPage";
 import { ForgotPage } from "./pages/Forgot/ForgotPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
+import { CheckoutPage } from "./pages/Checkout/CheckoutPage";
 
 export const routes: RouteObject[] = [
     {
@@ -20,5 +21,9 @@ export const routes: RouteObject[] = [
     {
         path: '/forgot',
         element: <ForgotPage />
+    },
+    {
+        path: '/checkout',
+        element: <CheckoutPage />
     }
 ]

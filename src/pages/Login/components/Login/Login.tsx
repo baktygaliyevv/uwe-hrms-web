@@ -16,7 +16,6 @@ export const Login: FC = () => {
     const handlePasswordChange = useCallback(({ target }: ChangeEvent<HTMLInputElement>) => setPassword(target.value), []);
     const handleSubmit = useCallback(() => {
         authLoginPost({
-            // @ts-expect-error FIXME awaiting new swagger
             email,
             password
         })

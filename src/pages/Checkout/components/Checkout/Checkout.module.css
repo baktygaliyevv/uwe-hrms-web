@@ -1,0 +1,32 @@
+.container {
+    width: 70%;
+}
+
+.inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.cart {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.semiBoldLine {
+    margin-bottom: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+}
+
+.boldLine {
+    margin-bottom: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
