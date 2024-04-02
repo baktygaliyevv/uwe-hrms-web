@@ -155,9 +155,8 @@ export interface OrderItemPatch {
   quantity: number;
 }
 
-export interface Order {
+export interface OrderGeneric {
   id: number;
-  user: User | null;
   table: Table;
   promocode: Promocode | null;
   /** @format date-time */
@@ -166,6 +165,10 @@ export interface Order {
   completed_at: string | null;
   items: OrderItem[];
 }
+
+export type Order = OrderGeneric & {
+  user: User | null;
+};
 
 export interface OrderPostGeneric {
   table_id: number;
@@ -207,9 +210,8 @@ export interface DeliveryItemPatch {
 
 export type DeliveryStatus = "new" | "delivering" | "complete";
 
-export interface Delivery {
+export interface DeliveryGeneric {
   id: number;
-  user: User;
   restaurant: Restaurant;
   promocode: Promocode | null;
   address: string;
@@ -218,6 +220,10 @@ export interface Delivery {
   status: DeliveryStatus;
   items: DeliveryItem[];
 }
+
+export type Delivery = DeliveryGeneric & {
+  user: User;
+};
 
 export interface DeliveryPostGeneric {
   restaurant_id: number;

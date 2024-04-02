@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import styles from './Header.module.css';
 import { Button, IconButton, useToast } from "@chakra-ui/react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
@@ -6,12 +6,19 @@ import { useOwnUser } from "../../../../stores/OwnUserStore";
 import { authDelete } from "../../../../api/auth/authDelete";
 import { CartIcon } from "../../../../icons";
 import { CartDrawer } from "../CartDrawer/CartDrawer";
+import { authGet } from "../../../../api/auth/authGet";
 
 export const Header: FC = () => {
     const toast = useToast();
     const navigateTo = useNavigate();
     const { own, setOwn } = useOwnUser();
     const [cartOpen, setCartOpen] = useState(false);
+
+    useEffect(() => {
+        if(!own) {
+            authGet().then(({ data }) => setOwn(data.payload))
+        }
+    }, [own]);
 
     const handleLogout = useCallback(() => {
         authDelete()
@@ -42,6 +49,9 @@ export const Header: FC = () => {
                         <Button onClick={handleLogout}>Logout</Button>
                     ) : (
                         <Button as={ReactRouterLink} to='/login'>Login</Button>
+                    )}
+                    {own && (
+                        <Button as={ReactRouterLink} to='/orders'>Orders</Button>
                     )}
                     <IconButton 
                         aria-label="Cart" 
