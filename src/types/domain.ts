@@ -59,6 +59,11 @@ export interface LoginPost {
   password: string;
 }
 
+export type SignupPost = LoginPost & {
+  first_name: string;
+  last_name: string;
+};
+
 export interface Restaurant {
   id: number;
   city: string;

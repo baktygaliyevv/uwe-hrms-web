@@ -1,9 +1,12 @@
 import { FC, useCallback, useState, ChangeEvent } from "react";
-import { Card, CardBody, CardHeader, FormControl, Input, Heading, CardFooter, Button, Link } from "@chakra-ui/react";
+import { Card, CardBody, CardHeader, FormControl, Input, Heading, CardFooter, Button, Link, useToast } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from 'react-router-dom';
 import styles from './Signup.module.css';
+import { authSignupPost } from "../../../../api/auth/authSignupPost";
 
 export const Signup: FC = () => {
+    const toast = useToast();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -14,9 +17,30 @@ export const Signup: FC = () => {
     const handleFirstNameChange = useCallback(({ target }: ChangeEvent<HTMLInputElement>) => setFirstName(target.value), []);
     const handleLastNameChange = useCallback(({ target }: ChangeEvent<HTMLInputElement>) => setLastName(target.value), []);
 
-    const handleSubmit = useCallback(() => {
-
-    }, []);
+    const handleSubmit = () => {
+        authSignupPost({
+            email,
+            password,
+            first_name: firstName,
+            last_name: lastName
+        }).then(() => {
+            toast({
+                title: 'Please check your email for verification link!',
+                status: 'success',
+                duration: 2000
+            });
+            setEmail('');
+            setPassword('');
+            setFirstName('');
+            setLastName('');
+        }).catch(() => {
+            toast({
+                title: 'Error creating your account:(',
+                status: 'error',
+                duration: 2000
+            });
+        })
+    };
 
     return (
         <div className={styles.wrapper}>
