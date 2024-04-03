@@ -4,6 +4,9 @@ import { MenuPage } from "./pages/Menu/MenuPage";
 import { ForgotPage } from "./pages/Forgot/ForgotPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { CheckoutPage } from "./pages/Checkout/CheckoutPage";
+import { AdminWrapper } from "./components/AdminWrapper/AdminWrapper";
+import { AdminDashboardPage } from "./pages/AdminDashboard/AdminDashboardPage";
+import { AdminUsersPage } from "./pages/AdminUsers/AdminUsersPage";
 
 export const routes: RouteObject[] = [
     {
@@ -25,5 +28,19 @@ export const routes: RouteObject[] = [
     {
         path: '/checkout',
         element: <CheckoutPage />
+    },
+    {
+        path: '/admin',
+        element: <AdminWrapper />, 
+        children: [
+            {
+                path: '/admin',
+                element: <AdminDashboardPage />
+            },
+            {
+                path: 'users',
+                element: <AdminUsersPage />
+            }
+        ]
     }
 ]
