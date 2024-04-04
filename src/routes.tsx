@@ -8,6 +8,7 @@ import { OrdersPage } from "./pages/Orders/OrdersPage";
 import { AdminWrapper } from "./components/AdminWrapper/AdminWrapper";
 import { AdminDashboardPage } from "./pages/AdminDashboard/AdminDashboardPage";
 import { AdminUsersPage } from "./pages/AdminUsers/AdminUsersPage";
+import { AdminTablesPage } from "./pages/AdminTables/AdminTablesPage";
 
 export const routes: RouteObject[] = [
     {
@@ -45,6 +46,10 @@ export const routes: RouteObject[] = [
             {
                 path: 'users',
                 element: <AdminUsersPage />
+            },
+            {
+                path: 'tables',
+                element: <AdminTablesPage />
             }
         ]
     }
