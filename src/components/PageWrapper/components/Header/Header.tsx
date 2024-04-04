@@ -38,6 +38,7 @@ export const Header: FC = () => {
             <div className={styles.container}>
                 Horizon
                 <div className={styles.actions}>
+                    {own && own.role !== 'client' && <Button as={ReactRouterLink} to='/admin'>Manage</Button>}
                     {own ? (
                         <Button onClick={handleLogout}>Logout</Button>
                     ) : (
