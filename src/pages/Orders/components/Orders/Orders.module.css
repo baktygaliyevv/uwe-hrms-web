@@ -1,0 +1,32 @@
+.container {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.inner {
+    width: 70%;
+    display: flex;
+    gap: 16px;
+}
+
+.inner > * {
+    flex: 1 0 50%;
+}
+
+.semiBoldLine {
+    margin-bottom: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+}
+
+.boldLine {
+    margin-bottom: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
