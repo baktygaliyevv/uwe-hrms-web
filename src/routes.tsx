@@ -5,6 +5,9 @@ import { ForgotPage } from "./pages/Forgot/ForgotPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { CheckoutPage } from "./pages/Checkout/CheckoutPage";
 import { OrdersPage } from "./pages/Orders/OrdersPage";
+import { AdminWrapper } from "./components/AdminWrapper/AdminWrapper";
+import { AdminDashboardPage } from "./pages/AdminDashboard/AdminDashboardPage";
+import { AdminUsersPage } from "./pages/AdminUsers/AdminUsersPage";
 
 export const routes: RouteObject[] = [
     {
@@ -30,5 +33,19 @@ export const routes: RouteObject[] = [
     {
         path: '/orders',
         element: <OrdersPage />
+    },
+    {
+        path: '/admin',
+        element: <AdminWrapper />, 
+        children: [
+            {
+                path: '/admin',
+                element: <AdminDashboardPage />
+            },
+            {
+                path: 'users',
+                element: <AdminUsersPage />
+            }
+        ]
     }
 ]
