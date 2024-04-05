@@ -38,11 +38,6 @@ export const ADMIN_SECTIONS: AdminSection[] = [
         allowed: ['admin', 'manager']
     },
     {
-        text: 'Restaurants',
-        to: '/admin/restaurants',
-        allowed: ['admin']
-    },
-    {
         text: 'Restaurant storages',
         to: '/admin/storage',
         allowed: ['admin', 'manager', 'chef']

@@ -5,6 +5,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useOwnUser } from "../../stores/OwnUserStore";
 import { authGet } from "../../api/auth/authGet";
 import { Loader } from "../Loader/Loader";
+import { RestaurantSelectorProvider } from "./components/RestaurantSelector/RestaurantSelectorProvider";
 
 export const AdminWrapper: FC = () => {
     const navigateTo = useNavigate();
@@ -30,11 +31,13 @@ export const AdminWrapper: FC = () => {
     }
 
     return (
-        <div className={styles.container}>
-            <AdminHeader />
-            <div className={styles.content}>
-                <Outlet />
+        <RestaurantSelectorProvider>
+            <div className={styles.container}>
+                <AdminHeader />
+                <div className={styles.content}>
+                    <Outlet />
+                </div>
             </div>
-        </div>
+        </RestaurantSelectorProvider>
     )
 }
