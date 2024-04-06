@@ -91,6 +91,17 @@ export interface ProductPatch {
   gluten_free?: boolean;
 }
 
+export interface StorageItem {
+  restaurant: Restaurant;
+  product: Product;
+  count: number;
+}
+
+export interface StorageItemAlter {
+  restaurant_id: number;
+  product_id: number;
+}
+
 export interface Table {
   id: number;
   restaurant: Restaurant;

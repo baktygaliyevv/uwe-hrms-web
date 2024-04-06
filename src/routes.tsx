@@ -10,6 +10,8 @@ import { AdminDashboardPage } from "./pages/AdminDashboard/AdminDashboardPage";
 import { AdminUsersPage } from "./pages/AdminUsers/AdminUsersPage";
 import { AdminTablesPage } from "./pages/AdminTables/AdminTablesPage";
 import { AdminPromocodesPage } from "./pages/AdminPromocodes/AdminPromocodesPage";
+import { AdminProductsPage } from "./pages/AdminProducts/AdminProductsPage";
+import { AdminStoragePage } from "./pages/AdminStorage/AdminStoragePage";
 
 export const routes: RouteObject[] = [
     {
@@ -55,6 +57,14 @@ export const routes: RouteObject[] = [
             {
                 path: 'promocodes',
                 element: <AdminPromocodesPage />
+            },
+            {
+                path: 'products', 
+                element: <AdminProductsPage />
+            },
+            {
+                path: 'storage',
+                element: <AdminStoragePage />
             }
         ]
     }
