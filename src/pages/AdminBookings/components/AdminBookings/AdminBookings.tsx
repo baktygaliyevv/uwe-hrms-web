@@ -4,12 +4,14 @@ import { Booking } from "../../../../types/domain";
 import { bookingsGet } from "../../../../api/bookings/bookingsGet";
 import { AdminBooking } from "../AdminBooking/AdminBooking";
 import { AddEditAdminBookingModal } from "../AddEditAdminBookingModal/AddEditAdminBookingModal";
+import { useRestaurantSelector } from "../../../../components/AdminWrapper/components/RestaurantSelector/RestaurantSelectorProvider";
 
 export const AdminBookings: FC = () => {
+    const { selected } = useRestaurantSelector();
     const [bookings, setBookings] = useState<Booking[]>([]);
 
-    const getBookings = useCallback(() => 
-        bookingsGet().then(({ data }) => setBookings(data.payload)), 
+    const getBookings = useCallback(() =>
+        bookingsGet().then(({ data }) => setBookings(data.payload)),
     []);
 
     useEffect(() => {
@@ -36,12 +38,14 @@ export const AdminBookings: FC = () => {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    {bookings.map((booking) => (
-                        <AdminBooking key={booking.id} booking={booking} onChange={getBookings} />
-                    ))}
+                    {bookings.filter(({ table }) => table.restaurant.id === selected.id)
+                        .map((booking) => (
+                            <AdminBooking key={booking.id} booking={booking} onChange={getBookings} />
+                        )
+                    )}
                 </Tbody>
             </Table>
-            <AddEditAdminBookingModal 
+            <AddEditAdminBookingModal
                 isOpen={openModal}
                 onClose={() => setOpenModal(false)}
                 onChange={getBookings}

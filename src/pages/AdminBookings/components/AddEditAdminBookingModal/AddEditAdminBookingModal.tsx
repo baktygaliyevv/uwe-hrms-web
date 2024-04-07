@@ -28,8 +28,8 @@ export const AddEditAdminBookingModal: FC<Props> = ({ booking, isOpen, onClose, 
         usersGet().then(({ data }) => setUsers(data.payload));
     }, []);
 
-    const [userId, setUserId] = useState(booking?.user.id || 1);
-    const [tableId, setTableId] = useState(booking?.table.id || 1);
+    const [userId, setUserId] = useState(booking?.user.id);
+    const [tableId, setTableId] = useState(booking?.table.id);
     const [persons, setPersons] = useState(booking?.persons || 2);
     const [date, setDate] = useState(dayjs(booking?.date));
     const [comment, setComment] = useState(booking?.comment || '');
@@ -38,10 +38,13 @@ export const AddEditAdminBookingModal: FC<Props> = ({ booking, isOpen, onClose, 
         (booking ? bookingsIdPatch(booking.id, diffObjects({
             table_id: tableId,
             persons,
-            date,
+            date: date.toISOString(),
             comment
-        }, booking)) : bookingsPost({
-            table_id: tableId,
+        }, {
+            ...booking,
+            table_id: tableId
+        })) : bookingsPost({
+            table_id: tableId!,
             user_id: userId,
             persons, 
             date: date.toISOString(), 
@@ -84,6 +87,7 @@ export const AddEditAdminBookingModal: FC<Props> = ({ booking, isOpen, onClose, 
                     <Text mb="8px">Client:</Text>
                     <Select
                         mb="16px"
+                        isDisabled={!!booking}
                         value={userId} 
                         onChange={({ target }) => setUserId(parseInt(target.value))}
                     >

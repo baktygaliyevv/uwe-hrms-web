@@ -12,6 +12,7 @@ import { AdminTablesPage } from "./pages/AdminTables/AdminTablesPage";
 import { AdminPromocodesPage } from "./pages/AdminPromocodes/AdminPromocodesPage";
 import { AdminProductsPage } from "./pages/AdminProducts/AdminProductsPage";
 import { AdminStoragePage } from "./pages/AdminStorage/AdminStoragePage";
+import { AdminBookingsPage } from "./pages/AdminBookings/AdminBookingsPage";
 
 export const routes: RouteObject[] = [
     {
@@ -65,6 +66,10 @@ export const routes: RouteObject[] = [
             {
                 path: 'storage',
                 element: <AdminStoragePage />
+            },
+            {
+                path: 'bookings',
+                element: <AdminBookingsPage />
             }
         ]
     }

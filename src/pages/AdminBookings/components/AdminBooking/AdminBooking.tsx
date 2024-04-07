@@ -40,7 +40,7 @@ export const AdminBooking: FC<Props> = ({ booking, onChange }) => {
             <Td>{user.first_name} {user.last_name}</Td>
             <Td>{table.id}</Td>
             <Td>{persons}</Td>
-            <Td>{dayjs(date).format('DD.MM.YYYY ')}</Td>
+            <Td>{dayjs(date).format('DD.MM.YYYY HH:mm')}</Td>
             <Td>{comment}</Td>
             <Td>
                 <Stack direction="row">
