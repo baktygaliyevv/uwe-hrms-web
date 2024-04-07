@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useStorage } from "../../hooks/useStorage";
 import { useRestaurantSelector } from "../../../../components/AdminWrapper/components/RestaurantSelector/RestaurantSelectorProvider";
-import { Heading, Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
+import { Table, TableContainer, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 import { AdminStorageRow } from "../AdminStorageRow/AdminStorageRow";
 
 export const AdminStorage: FC = () => {
@@ -10,7 +10,6 @@ export const AdminStorage: FC = () => {
 
     return (
         <TableContainer padding="16px 10%">
-            <Heading size="md">Storage</Heading>
             <Table variant="simple">
                 <Thead>
                     <Tr>
