@@ -58,7 +58,7 @@ export const AdminBooking: FC<Props> = ({ booking, onChange }) => {
                         </PopoverTrigger>
                         <PopoverContent>
                             <PopoverArrow />
-                            <PopoverHeader>Are you sure you want to delete this booking?</PopoverHeader>
+                            <PopoverHeader>Are you sure?</PopoverHeader>
                             <PopoverBody>
                                 <Button colorScheme="red" width="100%" onClick={handleDelete}>I'm 100% sure</Button>
                             </PopoverBody>
