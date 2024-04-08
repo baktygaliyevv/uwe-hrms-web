@@ -11,7 +11,6 @@ import { menuIdPatch } from "../../../../api/menu/menuIdPatch";
 import { menuPost } from "../../../../api/menu/menuPost";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import { productsGet } from "../../../../api/products/productsGet";
-import { dumbCompareArrays } from "../../../../utils/dumbCompareArrays";
 import { menuIdProductsPost } from "../../../../api/menu/menuIdProductsPost";
 import { menuIdProductsIdDelete } from "../../../../api/menu/menuIdProductsIdDelete";
 
