@@ -69,6 +69,39 @@ export interface Restaurant {
   city: string;
 }
 
+export interface BookingClient {
+  id: number;
+  table: Table;
+  persons: number;
+  /** @format date-time */
+  date: string;
+  comment: string;
+}
+
+export interface BookingClientPost {
+  table_id: number;
+  persons: number;
+  /** @format date-time */
+  date: string;
+  comment: string;
+}
+
+export type Booking = BookingClient & {
+  user: User;
+};
+
+export type BookingPost = BookingClientPost & {
+  user_id?: number;
+};
+
+export interface BookingPatch {
+  table_id?: number;
+  persons?: number;
+  /** @format date-string */
+  date?: string;
+  comment?: string;
+}
+
 export interface Product {
   id: number;
   name: string;
