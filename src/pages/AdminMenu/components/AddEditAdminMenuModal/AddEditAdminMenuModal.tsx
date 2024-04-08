@@ -85,24 +85,34 @@ export const AddEditAdminMenuModal: FC<Props> = ({ item, categories, isOpen, onC
         });
     }
 
-    const handleRemoveProduct = useCallback((id: number) => 
-        menuIdProductsIdDelete(item!.id, id).then(() => 
+    const handleRemoveProduct = useCallback((id: number) => {
+        const f = () => 
             setProducts((products) => {
                 products.splice(products.findIndex((product) => product.id === id), 1);
                 return products;
-            })
-        ), 
-    []);
+            });
+        
+        if(item) {
+            return menuIdProductsIdDelete(item.id, id).then(f)
+        }
+
+        return f();
+    }, [item]);
 
     const [newProduct, setNewProduct] = useState<number>();
-    const handleAddProduct = useCallback(() => 
-        menuIdProductsPost(item!.id, { product_id: newProduct! }).then(() => 
+    const handleAddProduct = useCallback(() => {
+        const f = () => 
             setProducts((products) => ([
                 ...products,
                 allProducts?.find(({ id }) => id === newProduct)!
-            ]))
-        ),
-    [newProduct, allProducts]);
+            ]));
+
+        if(item) {
+            return menuIdProductsPost(item.id, { product_id: newProduct! }).then(f);
+        }
+
+        return f();
+    }, [newProduct, allProducts, item]);
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
