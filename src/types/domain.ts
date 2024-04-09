@@ -211,7 +211,7 @@ export interface OrderGeneric {
   /** @format date-time */
   created_at: string;
   /** @format date-time */
-  completed_at: string | null;
+  complete_at: string | null;
   items: OrderItem[];
 }
 
@@ -232,7 +232,7 @@ export type OrderClientPost = OrderPostGeneric & {
 };
 
 export type OrderPost = OrderPostGeneric & {
-  user_id: number;
+  user_id?: number | null;
 };
 
 export interface OrderPatch {
@@ -240,7 +240,7 @@ export interface OrderPatch {
   table_id?: number;
   promocode_id?: string;
   /** @format date-time */
-  completed_at?: string;
+  complete_at?: string;
 }
 
 export interface DeliveryItem {
