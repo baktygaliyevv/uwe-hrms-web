@@ -10,7 +10,7 @@ type Props = { orders: OrderGeneric[] };
 export const OrdersList: FC<Props> = ({ orders }) => {
     return (
         <>
-            {orders.map(({ id, table, promocode, created_at, completed_at, items }) => {
+            {orders.map(({ id, table, promocode, created_at, complete_at, items }) => {
                 const { subTotalSum, totalSum } = calculateCart(items, promocode);
 
                 return (
@@ -18,8 +18,8 @@ export const OrdersList: FC<Props> = ({ orders }) => {
                         <CardHeader>
                             <Stack direction="row" alignItems="center" justifyContent="space-between">
                                 <Heading size="xs">Order #{id} at table {table.id}, {table.restaurant.city} ({dayjs(created_at).format('DD.MM.YYYY HH:mm')})</Heading>
-                                <Tag colorScheme={completed_at ? "green" : "yellow"}>
-                                    {completed_at ? 'Complete' : 'In progress'}
+                                <Tag colorScheme={complete_at ? "green" : "yellow"}>
+                                    {complete_at ? 'Complete' : 'In progress'}
                                 </Tag>
                             </Stack>
                         </CardHeader>

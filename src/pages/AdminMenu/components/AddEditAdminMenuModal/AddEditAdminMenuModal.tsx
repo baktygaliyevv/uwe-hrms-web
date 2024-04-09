@@ -91,7 +91,6 @@ export const AddEditAdminMenuModal: FC<Props> = ({ item, products: allProducts, 
 
     const [newProduct, setNewProduct] = useState<number>(allProducts[0].id);
     const handleAddProduct = () => {
-        console.log(allProducts, allProducts?.find(({ id }) => id === newProduct));
         const f = () => 
             setProducts((products) => ([
                 ...products,

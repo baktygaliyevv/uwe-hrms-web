@@ -14,6 +14,7 @@ import { AdminProductsPage } from "./pages/AdminProducts/AdminProductsPage";
 import { AdminStoragePage } from "./pages/AdminStorage/AdminStoragePage";
 import { AdminBookingsPage } from "./pages/AdminBookings/AdminBookingsPage";
 import { AdminMenuPage } from "./pages/AdminMenu/AdminMenuPage";
+import { AdminOrdersPage } from "./pages/AdminOrders/AdminOrdersPage";
 
 export const routes: RouteObject[] = [
     {
@@ -75,6 +76,10 @@ export const routes: RouteObject[] = [
             {
                 path: 'menu',
                 element: <AdminMenuPage />
+            },
+            {
+                path: 'orders',
+                element: <AdminOrdersPage />
             }
         ]
     }
