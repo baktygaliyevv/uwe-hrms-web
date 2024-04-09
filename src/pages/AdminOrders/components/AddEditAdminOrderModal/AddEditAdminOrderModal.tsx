@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Menu, Order, OrderItem, Promocode, Table as TableType, User } from "../../../../types/domain";
 import { 
     Button, ButtonGroup, IconButton, Modal, ModalBody, ModalCloseButton, ModalContent, 
@@ -29,10 +29,21 @@ export const AddEditAdminOrderModal: FC<Props> = ({ order, tables, users, promoc
     const toast = useToast();
     const { selected } = useRestaurantSelector();
 
-    const [tableId, setTableId] = useState(order?.table.id || tables.filter(({ restaurant }) => restaurant.id === selected.id)[0]?.id);
-    const [userId, setUserId] = useState(order?.user?.id || 0);
-    const [promocode, setPromocode] = useState(order?.promocode?.id || "null");
-    const [items, setItems] = useState<OrderItem[]>(order?.items || []);
+    const [tableId, setTableId] = useState(tables.filter(({ restaurant }) => restaurant.id === selected.id)[0]?.id);
+    const [userId, setUserId] = useState(0);
+    const [promocode, setPromocode] = useState("null");
+    const [items, setItems] = useState<OrderItem[]>([]);
+
+    useEffect(() => {
+        if(order) {
+            setTableId(order.table.id);
+            setUserId(order.user?.id || 0);
+            setPromocode(order.promocode?.id || "null");
+            setItems(order.items);
+        } else {
+            setTableId(tables.filter(({ restaurant }) => restaurant.id === selected.id)[0]?.id);
+        }
+    }, [order, tables]);
 
     const handleSubmit = () => {
         if(order) {
@@ -91,6 +102,13 @@ export const AddEditAdminOrderModal: FC<Props> = ({ order, tables, users, promoc
     };
 
     const [newItem, setNewItem] = useState(menu[0]?.id);
+
+    useEffect(() => {
+        if(menu) {
+            setNewItem(menu[0]?.id);
+        }
+    }, [menu]);
+
     const handleAdd = () => {
         const f = () => 
             setItems((items) => ([
@@ -110,7 +128,7 @@ export const AddEditAdminOrderModal: FC<Props> = ({ order, tables, users, promoc
 
         setItems((items) => {
             items[items.findIndex(({ item }) => item.id === itemId)].quantity++;
-            return items;
+            return [...items];
         });
 
         if(order && q) {
@@ -125,7 +143,7 @@ export const AddEditAdminOrderModal: FC<Props> = ({ order, tables, users, promoc
             if(q === 1) return items.filter(({ item }) => item.id !== itemId);
 
             items[items.findIndex(({ item }) => item.id === itemId)].quantity--;
-            return items;
+            return [...items];
         });
 
         if(order && q) {
