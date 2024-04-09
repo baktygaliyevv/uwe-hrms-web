@@ -5,6 +5,7 @@ import { ForgotPage } from "./pages/Forgot/ForgotPage";
 import { SignupPage } from "./pages/Signup/SignupPage";
 import { CheckoutPage } from "./pages/Checkout/CheckoutPage";
 import { OrdersPage } from "./pages/Orders/OrdersPage";
+import { BookingsPage } from "./pages/Bookings/BookingsPage";
 import { AdminWrapper } from "./components/AdminWrapper/AdminWrapper";
 import { AdminDashboardPage } from "./pages/AdminDashboard/AdminDashboardPage";
 import { AdminUsersPage } from "./pages/AdminUsers/AdminUsersPage";
@@ -13,7 +14,8 @@ import { AdminPromocodesPage } from "./pages/AdminPromocodes/AdminPromocodesPage
 import { AdminProductsPage } from "./pages/AdminProducts/AdminProductsPage";
 import { AdminStoragePage } from "./pages/AdminStorage/AdminStoragePage";
 import { AdminBookingsPage } from "./pages/AdminBookings/AdminBookingsPage";
-import { BookingsPage } from "./pages/Bookings/BookingsPage";
+import { AdminMenuPage } from "./pages/AdminMenu/AdminMenuPage";
+import { AdminOrdersPage } from "./pages/AdminOrders/AdminOrdersPage";
 
 export const routes: RouteObject[] = [
     {
@@ -75,6 +77,14 @@ export const routes: RouteObject[] = [
             {
                 path: 'bookings',
                 element: <AdminBookingsPage />
+            },
+            {
+                path: 'menu',
+                element: <AdminMenuPage />
+            },
+            {
+                path: 'orders',
+                element: <AdminOrdersPage />
             }
         ]
     }
