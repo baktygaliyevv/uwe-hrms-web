@@ -1,5 +1,5 @@
 import { FC, useCallback, useState } from "react";
-import { Menu, MenuCategory } from "../../../../types/domain";
+import { Menu, MenuCategory, Product } from "../../../../types/domain";
 import { Button, IconButton, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverHeader, PopoverTrigger, Stack, Td, Tr, useToast } from "@chakra-ui/react";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { menuIdDelete } from "../../../../api/menu/menuIdDelete";
@@ -7,12 +7,13 @@ import { AddEditAdminMenuModal } from "../AddEditAdminMenuModal/AddEditAdminMenu
 
 type Props = {
     item: Menu;
+    products: Product[];
     categories: MenuCategory[];
     unavailable: boolean;
     onChange: () => void;
 };
 
-export const AdminMenuItemRow: FC<Props> = ({ item, categories, unavailable, onChange }) => {
+export const AdminMenuItemRow: FC<Props> = ({ item, products: allProducts, categories, unavailable, onChange }) => {
     const toast = useToast();
     const { id, name, category, products, price } = item;
 
@@ -68,6 +69,7 @@ export const AdminMenuItemRow: FC<Props> = ({ item, categories, unavailable, onC
             </Td>
             <AddEditAdminMenuModal 
                 item={item}
+                products={allProducts}
                 categories={categories}
                 isOpen={modalOpen}
                 onClose={() => setModalOpen(false)}

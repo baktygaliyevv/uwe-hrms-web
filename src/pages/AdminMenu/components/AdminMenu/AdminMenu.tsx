@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useState } from "react";
 import { useRestaurantSelector } from "../../../../components/AdminWrapper/components/RestaurantSelector/RestaurantSelectorProvider";
 import { Button, Flex, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverHeader, PopoverTrigger, Stack, Table, TableContainer, Tbody, Th, Thead, Tr, Input, useToast } from "@chakra-ui/react";
-import { Menu, MenuCategory } from "../../../../types/domain";
+import { Menu, MenuCategory, Product } from "../../../../types/domain";
 import { menuGet } from "../../../../api/menu/menuGet";
 import { menuCategoriesGet } from "../../../../api/menu/menuCategoriesGet";
 import { menuUnavailableGet } from "../../../../api/menu/menuUnavailableGet";
@@ -9,10 +9,12 @@ import { AdminMenuItemRow } from "../AdminMenuItemRow/AdminMenuItemRow";
 import { AdminMenuCategoryRow } from "../AdminMenuCategoryRow/AdminMenuCategoryRow";
 import { menuCategoriesPost } from "../../../../api/menu/menuCategoriesPost";
 import { AddEditAdminMenuModal } from "../AddEditAdminMenuModal/AddEditAdminMenuModal";
+import { productsGet } from "../../../../api/products/productsGet";
 
 export const AdminMenu: FC = () => {
     const toast = useToast();
     const { selected } = useRestaurantSelector();
+    const [products, setProducts] = useState<Product[]>();
     const [menu, setMenu] = useState<Menu[]>();
     const [menuCategories, setMenuCategories] = useState<MenuCategory[]>();
     const [unavailableMenu, setUnavailableMenu] = useState<Menu[]>();
@@ -24,6 +26,7 @@ export const AdminMenu: FC = () => {
     }, []);
 
     useEffect(() => {
+        productsGet().then(({ data }) => setProducts(data.payload));
         menuGet().then(({ data }) => setMenu(data.payload));
         menuCategoriesGet().then(({ data }) => setMenuCategories(data.payload));
     }, []);
@@ -73,9 +76,10 @@ export const AdminMenu: FC = () => {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {menuCategories && menu?.map((item) => (
+                        {products && menuCategories && menu?.map((item) => (
                             <AdminMenuItemRow 
                                 item={item}
+                                products={products}
                                 categories={menuCategories}
                                 unavailable={!!unavailableMenu?.find(({ id }) => item.id === id)}
                                 onChange={handleUpdate}
@@ -83,8 +87,9 @@ export const AdminMenu: FC = () => {
                         ))}
                     </Tbody>
                 </Table>
-                {menuCategories && (
+                {products && menuCategories && (
                     <AddEditAdminMenuModal
+                        products={products}
                         categories={menuCategories}
                         isOpen={openModal}
                         onClose={() => setOpenModal(false)}

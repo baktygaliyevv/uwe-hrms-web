@@ -1,37 +1,31 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { Menu, MenuCategory, Product } from "../../../../types/domain";
 import {
     Button, IconButton, Input, Modal, ModalBody, ModalCloseButton, ModalContent, 
-    ModalFooter, ModalHeader, ModalOverlay, Popover, PopoverArrow, PopoverBody, 
-    PopoverContent, PopoverHeader, PopoverTrigger, Select, Table, TableContainer, 
+    ModalFooter, ModalHeader, ModalOverlay, Select, Table, TableContainer, 
     Tbody, Td, Text, Th, Thead, Tr, useToast 
 } from "@chakra-ui/react";
 import { diffObjects } from "../../../../utils/diffObjects";
 import { menuIdPatch } from "../../../../api/menu/menuIdPatch";
 import { menuPost } from "../../../../api/menu/menuPost";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
-import { productsGet } from "../../../../api/products/productsGet";
 import { menuIdProductsPost } from "../../../../api/menu/menuIdProductsPost";
 import { menuIdProductsIdDelete } from "../../../../api/menu/menuIdProductsIdDelete";
 
 type Props = {
     item?: Menu;
+    products: Product[];
     categories: MenuCategory[];
     isOpen: boolean;
     onClose: () => void;
     onChange: () => void;
 }
 
-export const AddEditAdminMenuModal: FC<Props> = ({ item, categories, isOpen, onClose, onChange }) => {
+export const AddEditAdminMenuModal: FC<Props> = ({ item, products: allProducts, categories, isOpen, onClose, onChange }) => {
     const toast = useToast();
-    const [allProducts, setAllProducts] = useState<Product[]>();
-
-    useEffect(() => {
-        productsGet().then(({ data }) => setAllProducts(data.payload));
-    }, []);
 
     const [name, setName] = useState(item?.name || '');
-    const [categoryId, setCategoryId] = useState(item?.category.id);
+    const [categoryId, setCategoryId] = useState(item?.category.id || allProducts[0].id);
     const [price, setPrice] = useState(item?.price || 0);
     const [products, setProducts] = useState(item?.products || []);
 
@@ -85,22 +79,19 @@ export const AddEditAdminMenuModal: FC<Props> = ({ item, categories, isOpen, onC
         });
     }
 
-    const handleRemoveProduct = useCallback((id: number) => {
-        const f = () => 
-            setProducts((products) => {
-                products.splice(products.findIndex((product) => product.id === id), 1);
-                return products;
-            });
+    const handleRemoveProduct = (id: number) => {
+        const f = () => setProducts((products) => products.filter((product) => product.id !== id));
         
         if(item) {
-            return menuIdProductsIdDelete(item.id, id).then(f)
+            return menuIdProductsIdDelete(item.id, id).then(f);
         }
 
         return f();
-    }, [item]);
+    };
 
-    const [newProduct, setNewProduct] = useState<number>();
-    const handleAddProduct = useCallback(() => {
+    const [newProduct, setNewProduct] = useState<number>(allProducts[0].id);
+    const handleAddProduct = () => {
+        console.log(allProducts, allProducts?.find(({ id }) => id === newProduct));
         const f = () => 
             setProducts((products) => ([
                 ...products,
@@ -112,7 +103,7 @@ export const AddEditAdminMenuModal: FC<Props> = ({ item, categories, isOpen, onC
         }
 
         return f();
-    }, [newProduct, allProducts, item]);
+    }
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -158,25 +149,11 @@ export const AddEditAdminMenuModal: FC<Props> = ({ item, categories, isOpen, onC
                                     <Tr key={id}>
                                         <Td>{name}</Td>
                                         <Td>
-                                            <Popover>
-                                                <PopoverTrigger>
-                                                    <IconButton
-                                                        aria-label="Delete"
-                                                        icon={<DeleteIcon />}
-                                                    />
-                                                </PopoverTrigger>
-                                                <PopoverContent>
-                                                    <PopoverArrow />
-                                                    <PopoverHeader>Are you sure?</PopoverHeader>
-                                                    <PopoverBody>
-                                                        <Button 
-                                                            colorScheme="red" 
-                                                            width="100%" 
-                                                            onClick={() => handleRemoveProduct(id)}
-                                                        >I'm 100% sure</Button>
-                                                    </PopoverBody>
-                                                </PopoverContent>
-                                            </Popover>
+                                            <IconButton
+                                                aria-label="Delete"
+                                                icon={<DeleteIcon />}
+                                                onClick={() => handleRemoveProduct(id)}
+                                            />
                                         </Td>
                                     </Tr>
                                 ))}
