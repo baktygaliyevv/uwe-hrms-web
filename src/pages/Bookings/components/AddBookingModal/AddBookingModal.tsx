@@ -11,7 +11,7 @@ type Props = {
     onChange: () => void;
 }
 
-export const AddEditAdminBookingModal: FC<Props> = ({ isOpen, onClose, onChange }) => {
+export const AddBookingModal: FC<Props> = ({ isOpen, onClose, onChange }) => {
     const toast = useToast();
 
     const [tables, setTables] = useState<Table[]>();
