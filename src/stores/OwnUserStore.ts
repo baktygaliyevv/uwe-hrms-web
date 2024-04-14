@@ -7,6 +7,6 @@ type OwnUserStore = {
 }
 
 export const useOwnUser = create<OwnUserStore>((set) => ({
-    own: { id: 1, first_name: 'Test', last_name: 'Test', email: 'test@exmaple.com', role: 'admin' },//null,
+    own: null,
     setOwn: (own) => set({ own })
 }));
