@@ -48,8 +48,7 @@ export const AddEditAdminDeliveryModal: FC<Props> = ({ delivery, users, promocod
         if(delivery) {
             const comparison = diffObjects({
                 user_id: userId,
-                promocode_id: promocode,
-                status
+                ...(promocode !== 'null' ? { promocode_id: promocode } : {}),
             }, {
                 user_id: delivery.user.id,
                 promocode_id: delivery.promocode?.id
@@ -74,6 +73,7 @@ export const AddEditAdminDeliveryModal: FC<Props> = ({ delivery, users, promocod
                         onClose();
                     });
             }
+            return;
         }
 
         return deliveriesPost({
@@ -189,6 +189,7 @@ export const AddEditAdminDeliveryModal: FC<Props> = ({ delivery, users, promocod
                         mb="16px"
                         value={address} 
                         onChange={({ target }) => setAddress(target.value)}
+                        isDisabled={!!delivery}
                     />
                     <Text mb="8px">Items:</Text>
                     <TableContainer>
