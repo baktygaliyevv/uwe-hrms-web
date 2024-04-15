@@ -49,7 +49,7 @@ export const AddAdminTableModal: FC<Props> = ({ isOpen, onClose, onChange }) => 
                 <ModalHeader>Add table</ModalHeader>
                 <ModalBody>
                     <Text mb="8px">Restaurant:</Text>
-                    <Select mb="16px" value={restaurantId} onChange={({ target }) => setRestaurantId(parseInt(target.value))}>
+                    <Select mb="16px" value={restaurantId} onChange={({ target }) => setRestaurantId(parseInt(target.value))} isDisabled>
                         {restaurants.map(({ id, city }) => <option key={id} value={id}>{city}</option>)}
                     </Select>
                     <Text mb="8px">Capacity:</Text>
