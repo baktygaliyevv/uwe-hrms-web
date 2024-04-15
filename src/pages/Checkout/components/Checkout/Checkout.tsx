@@ -12,7 +12,11 @@ import { tablesGet } from "../../../../api/tables/tablesGet";
 import { ordersClientPost } from "../../../../api/orders/ordersClientPost";
 import { deliveriesClientPost } from "../../../../api/deliveries/deliveriesClientPost";
 
-export const Checkout: FC = () => {
+type Props = {
+    presetTable?: number;
+}
+
+export const Checkout: FC<Props> = ({ presetTable }) => {
     const toast = useToast();
     const navigate = useNavigate();
     const { own } = useOwnUser();
@@ -32,6 +36,8 @@ export const Checkout: FC = () => {
     const [tables, setTables] = useState<Table[]>();
     const [selectedTable, setSelectedTable] = useState<number>();
 
+    console.log(selectedRestaurant, selectedTable);
+
     const curatedTables = useMemo(() => 
         tables?.filter((table) => table.restaurant.id === selectedRestaurant), 
     [tables, selectedRestaurant]);
@@ -40,6 +46,14 @@ export const Checkout: FC = () => {
         restaurantsGet().then(({ data }) => setRestaurants(data.payload));
         tablesGet().then(({ data }) => setTables(data.payload));
     }, []);
+
+    useEffect(() => {
+        if(presetTable && tables) {
+            console.log(presetTable, tables);
+            setSelectedRestaurant(tables.find(({ id }) => id === presetTable)?.restaurant.id);
+            setSelectedTable(presetTable);
+        }
+    }, [presetTable, tables]);
 
     // FIXME typings
     const handleRestaurantSelect = useCallback(({ target }: any) => setSelectedRestaurant(parseInt(target.value)), []);
@@ -122,10 +136,20 @@ export const Checkout: FC = () => {
                         </RadioGroup>
                         {orderType === 'order' ? (
                             <Stack direction='row' mb='24px'>
-                                <Select placeholder="Restaurant" onChange={handleRestaurantSelect}>
+                                <Select 
+                                    placeholder="Restaurant" 
+                                    value={selectedRestaurant} 
+                                    onChange={handleRestaurantSelect}
+                                    isDisabled={!!presetTable}
+                                >
                                     {restaurants?.map(({ id, city }) => <option value={id} key={id}>{city}</option>)}
                                 </Select>
-                                <Select placeholder="Table" onChange={handleTableSelect} isDisabled={!selectedRestaurant}>
+                                <Select 
+                                    placeholder="Table" 
+                                    value={selectedTable}
+                                    onChange={handleTableSelect} 
+                                    isDisabled={!selectedRestaurant || !!presetTable}
+                                >
                                     {curatedTables?.map(({ id, capacity }) => <option value={id} key={id}>{id} ({capacity} seats)</option>)}
                                 </Select>
                             </Stack>

@@ -1,6 +1,6 @@
 import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Input, InputGroup, InputRightElement, useToast } from "@chakra-ui/react";
 import { FC, useCallback, useState } from "react";
-import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ReactRouterLink, useSearchParams } from "react-router-dom";
 import { useCart } from "../../../../stores/CartStore";
 import { CartItem } from "../../../CartItem/CartItem";
 import { calculateCart } from "../../../../utils/calculateCart";
@@ -13,12 +13,19 @@ const getDrawerHeader = (totalQuantity: number, sum: number) => {
     return `${totalQuantity} items worth £ ${sum}`;
 }
 
+const getCheckoutLink = (searchParams: URLSearchParams) => {
+    const table = searchParams.get('table');
+    if(table) return `/checkout?table=${table}`;
+    return '/checkout';
+}
+
 type Props = {
     isOpen: boolean;
     onClose: () => void;
 }
 
 export const CartDrawer: FC<Props> = ({ isOpen, onClose }) => {
+    const [searchParams] = useSearchParams();
     const toast = useToast();
     const { cart, promocode, applyPromocode } = useCart();
 
@@ -94,7 +101,12 @@ export const CartDrawer: FC<Props> = ({ isOpen, onClose }) => {
                         <span>Total</span>
                         <span>£ {totalSum}</span>
                     </div>
-                    <Button as={ReactRouterLink} to='/checkout' width='100%' onClick={onClose}>Checkout</Button>
+                    <Button 
+                        as={ReactRouterLink} 
+                        to={getCheckoutLink(searchParams)} 
+                        width='100%' 
+                        onClick={onClose}
+                    >Checkout</Button>
                 </DrawerFooter>
             </DrawerContent>
         </Drawer>
