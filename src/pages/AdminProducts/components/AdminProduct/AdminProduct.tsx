@@ -37,9 +37,9 @@ export const AdminProduct: FC<Props> = ({ product, onChange }) => {
         <Tr>
             <Td>{id}</Td>
             <Td>{name}</Td>
-            <Td><Checkbox isDisabled checked={vegan} /></Td>
-            <Td><Checkbox isDisabled checked={vegetarian} /></Td>
-            <Td><Checkbox isDisabled checked={gluten_free} /></Td>
+            <Td><Checkbox isDisabled isChecked={vegan} /></Td>
+            <Td><Checkbox isDisabled isChecked={vegetarian} /></Td>
+            <Td><Checkbox isDisabled isChecked={gluten_free} /></Td>
             <Td>
                 <Stack direction="row">
                     <IconButton
