@@ -176,7 +176,7 @@ export const Checkout: FC = () => {
                         <RadioGroup value={billingType} onChange={setBillingType} mb='8px'>
                             <Stack direction='row'>
                                 <Radio value='new'>Different</Radio>
-                                <Radio value='same'>Same as delivery</Radio>
+                                {orderType === 'delivery' && <Radio value='same'>Same as delivery</Radio>}
                             </Stack>
                         </RadioGroup>
                         {billingType === 'new' && (
