@@ -63,17 +63,15 @@ export const AddEditAdminDeliveryModal: FC<Props> = ({ delivery, users, promocod
                             duration: 1000
                         });
                         onChange();
-                        onClose();
-                    }).catch(() => {
+                    }).catch(() => 
                         toast({
                             title: 'Error',
                             status: 'error',
                             duration: 2000
-                        });
-                        onClose();
-                    });
-            }
-            return;
+                        })
+                    ).finally(() => onClose());
+            } else onClose();
+            return 
         }
 
         return deliveriesPost({
