@@ -24,21 +24,25 @@ export const CartItem: FC<Props> = ({ item, quantity, showActions }) => {
                 <Text mb='6px'>{item.category.name}</Text>
                 <Divider />
                 <div className={styles.actions}>
-                    <Text fontWeight='bold'>£ {item.price}</Text>
-                    {showActions && (
-                        <ButtonGroup size='sm' isAttached>
-                            <IconButton 
-                                aria-label='Increment' 
-                                onClick={handleIncrement} 
-                                icon={<AddIcon />} 
-                            />
-                            <Button isDisabled>{quantity || 'Select'}</Button>
-                            <IconButton 
-                                aria-label='Decrement' 
-                                onClick={handleDecrement} 
-                                icon={<MinusIcon />} 
-                            />
-                        </ButtonGroup>
+                    {showActions ? (
+                        <>
+                            <Text fontWeight='bold'>£ {item.price}</Text>
+                            <ButtonGroup size='sm' isAttached>
+                                <IconButton 
+                                    aria-label='Increment' 
+                                    onClick={handleIncrement} 
+                                    icon={<AddIcon />} 
+                                />
+                                <Button isDisabled>{quantity || 'Select'}</Button>
+                                <IconButton 
+                                    aria-label='Decrement' 
+                                    onClick={handleDecrement} 
+                                    icon={<MinusIcon />} 
+                                />
+                            </ButtonGroup>
+                        </>
+                    ) : (
+                        <Text fontWeight='bold'>£ {item.price} x {quantity} - £ {item.price * quantity}</Text>
                     )}
                 </div>
             </CardBody>

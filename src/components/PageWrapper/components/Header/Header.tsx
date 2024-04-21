@@ -43,7 +43,7 @@ export const Header: FC = () => {
     return (
         <>
             <div className={styles.container}>
-                Horizon
+                <ReactRouterLink to='/'>Horizon</ReactRouterLink>
                 <div className={styles.actions}>
                     {own && own.role !== 'client' && <Button as={ReactRouterLink} to='/admin'>Manage</Button>}
                     {own && (
