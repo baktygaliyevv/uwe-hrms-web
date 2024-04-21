@@ -95,13 +95,15 @@ export const AddEditAdminDeliveryModal: FC<Props> = ({ delivery, users, promocod
         });
     };
 
-    const [newItem, setNewItem] = useState(menu[0]?.id);
+    const menuFiltered = menu.filter((menu) => !items.find(({ item }) => item.id === menu.id));
+
+    const [newItem, setNewItem] = useState(menuFiltered[0]?.id);
 
     useEffect(() => {
-        if(menu) {
-            setNewItem(menu[0]?.id);
+        if(menuFiltered) {
+            setNewItem(menuFiltered[0]?.id);
         }
-    }, [menu]);
+    }, [menuFiltered]);
 
     const handleAdd = () => {
         const f = () => 
@@ -226,10 +228,7 @@ export const AddEditAdminDeliveryModal: FC<Props> = ({ delivery, users, promocod
                                             value={newItem}
                                             onChange={({ target }) => setNewItem(parseInt(target.value))}
                                         >
-                                            {menu
-                                                .filter((menu) => !items.find(({ item }) => item.id === menu.id))
-                                                .map(({ id, name }) => <option key={id} value={id}>{name}</option>)
-                                            }
+                                            {menuFiltered.map(({ id, name }) => <option key={id} value={id}>{name}</option>)}
                                         </Select>
                                     </Td>
                                     <Td>
