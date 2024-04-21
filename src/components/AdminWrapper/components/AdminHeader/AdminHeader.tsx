@@ -38,7 +38,7 @@ export const AdminHeader: FC = () => {
                     {restaurants.map(({id, city }) => <option key={id} value={id}>{city}</option>)}
                 </Select>
                 <Button style={{ flexShrink: '0' }} as={ReactRouterLink} to="/">Client zone</Button>
-                <Button style={{ flexShrink: '0' }} as={ReactRouterLink} to="/admin">Dashbord</Button>
+                <Button style={{ flexShrink: '0' }} as={ReactRouterLink} to="/admin">Dashboard</Button>
                 <Button style={{ flexShrink: '0' }} onClick={handleLogout}>Logout</Button>           
             </div>
         </div>
