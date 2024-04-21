@@ -37,7 +37,7 @@ export const AddEditAdminOrderModal: FC<Props> = ({ order, tables, users, promoc
     useEffect(() => {
         if(order) {
             setTableId(order.table.id);
-            setUserId(order.user?.id || 0);
+            setUserId(order.user?.id || 1);
             setPromocode(order.promocode?.id || "null");
             setItems(order.items);
         } else {
@@ -50,7 +50,7 @@ export const AddEditAdminOrderModal: FC<Props> = ({ order, tables, users, promoc
             const comparison = diffObjects({
                 user_id: userId,
                 table_id: tableId,
-                promocode_id: promocode,
+                promocode_id: promocode !== 'null' ? promocode : null,
             }, {
                 user_id: order.user?.id,
                 table_id: order.table.id,
@@ -66,16 +66,15 @@ export const AddEditAdminOrderModal: FC<Props> = ({ order, tables, users, promoc
                             duration: 1000
                         });
                         onChange();
-                        onClose();
-                    }).catch(() => {
+                    }).catch(() => 
                         toast({
                             title: 'Error',
                             status: 'error',
                             duration: 2000
-                        });
-                        onClose();
-                    });
-            }
+                        })
+                    ).finally(() => onClose());
+            } else onClose();
+            return;
         }
 
         return ordersPost({
