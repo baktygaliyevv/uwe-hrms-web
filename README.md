@@ -24,7 +24,7 @@ Before you proceed with the setup, make sure you have the following prerequisite
 ## Hosted Site
 
 For easy access and evaluation, the web client is also hosted and available for use at the following URL:
-   - uwe.dyzoon.dev
+   - [https://uwe.dyzoon.dev](https://uwe.dyzoon.dev)
 
 Feel free to visit and interact with the live application.
 
@@ -32,5 +32,5 @@ Feel free to visit and interact with the live application.
 
 To work on the application in a development setting with hot reloading:
 
-- Execute npm start in the repository directory.
+- Execute `npm start` in the repository directory.
 - By default, the application will be served at localhost and will automatically reload upon changes to the source files
