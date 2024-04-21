@@ -54,24 +54,21 @@ export const AddEditAdminDeliveryModal: FC<Props> = ({ delivery, users, promocod
                 promocode_id: delivery.promocode?.id
             });
 
-            if(Object.entries(comparison).length) {
-                return deliveriesIdPatch(delivery.id, comparison)
-                    .then(() => {
-                        toast({
-                            title: 'Success!',
-                            status: 'success',
-                            duration: 1000
-                        });
-                        onChange();
-                    }).catch(() => 
-                        toast({
-                            title: 'Error',
-                            status: 'error',
-                            duration: 2000
-                        })
-                    ).finally(() => onClose());
-            } else onClose();
-            return 
+            return (Object.entries(comparison).length ? deliveriesIdPatch(delivery.id, comparison) : Promise.resolve())
+                .then(() => {
+                    toast({
+                        title: 'Success!',
+                        status: 'success',
+                        duration: 1000
+                    });
+                    onChange();
+                }).catch(() => 
+                    toast({
+                        title: 'Error',
+                        status: 'error',
+                        duration: 2000
+                    })
+                ).finally(() => onClose());
         }
 
         return deliveriesPost({
