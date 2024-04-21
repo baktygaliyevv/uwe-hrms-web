@@ -57,24 +57,21 @@ export const AddEditAdminOrderModal: FC<Props> = ({ order, tables, users, promoc
                 promocode_id: order.promocode?.id
             });
 
-            if(Object.entries(comparison).length) {
-                return ordersIdPatch(order.id, comparison)
-                    .then(() => {
-                        toast({
-                            title: 'Success!',
-                            status: 'success',
-                            duration: 1000
-                        });
-                        onChange();
-                    }).catch(() => 
-                        toast({
-                            title: 'Error',
-                            status: 'error',
-                            duration: 2000
-                        })
-                    ).finally(() => onClose());
-            } else onClose();
-            return;
+            return (Object.entries(comparison).length ? ordersIdPatch(order.id, comparison) : Promise.resolve())
+                .then(() => {
+                    toast({
+                        title: 'Success!',
+                        status: 'success',
+                        duration: 1000
+                    });
+                    onChange();
+                }).catch(() => 
+                    toast({
+                        title: 'Error',
+                        status: 'error',
+                        duration: 2000
+                    })
+                ).finally(() => onClose());
         }
 
         return ordersPost({
