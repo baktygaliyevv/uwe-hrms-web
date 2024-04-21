@@ -239,7 +239,10 @@ export const AddEditAdminOrderModal: FC<Props> = ({ order, tables, users, promoc
                                             value={newItem}
                                             onChange={({ target }) => setNewItem(parseInt(target.value))}
                                         >
-                                            {menu.map(({ id, name }) => <option key={id} value={id}>{name}</option>)}
+                                            {menu
+                                                .filter((menu) => !items.find(({ item }) => item.id === menu.id))
+                                                .map(({ id, name }) => <option key={id} value={id}>{name}</option>)
+                                            }
                                         </Select>
                                     </Td>
                                     <Td>
